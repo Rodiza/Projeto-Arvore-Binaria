@@ -15,14 +15,14 @@ import br.com.davidbuzatto.jsge.image.Image;
  */
 public class Main extends EngineFrame {
     
-    private Image logo;
+    
     
     public Main() {
         
         super(
             800,                 // largura                      / width
             450,                 // algura                       / height
-            "Window Title",      // título                       / title
+            "Visualizador de Árvore Binária",      // título                       / title
             60,                  // quadros por segundo desejado / target FPS
             true,                // suavização                   / antialiasing
             false,               // redimensionável              / resizable
@@ -43,9 +43,7 @@ public class Main extends EngineFrame {
      */
     @Override
     public void create() {
-        logo = DrawingUtils.createLogo();
-        logo.resize( (int) ( logo.getWidth() * 0.1 ), (int) ( logo.getWidth() * 0.1 ) );
-        setWindowIcon( logo );
+        
     }
 
     /**
@@ -63,6 +61,7 @@ public class Main extends EngineFrame {
      */
     @Override
     public void update( double delta ) {
+        
     }
     
     /**
@@ -101,11 +100,6 @@ public class Main extends EngineFrame {
     
     }
     
-    /**
-     * Instancia a engine e a inicia.
-     * 
-     * Instantiates the engine and starts it.
-     */
     public static void main( String[] args ) {
         new Main();
     }
