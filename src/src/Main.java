@@ -6,18 +6,20 @@ import br.com.davidbuzatto.jsge.core.utils.DrawingUtils;
 import br.com.davidbuzatto.jsge.geom.Rectangle;
 import br.com.davidbuzatto.jsge.image.Image;
 import br.com.davidbuzatto.jsge.imgui.GuiButton;
-import arvores.Arvore;
+import arvores.ArvoreBinaria;
+import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Modelo de projeto básico da JSGE.
+ * Demonstração visual de Arvore Binária
  * 
- * JSGE basic project template.
- * 
- * @author Prof. Dr. David Buzatto
+ * @author Rodrigo Costa Garcia, Davi Beli Rosa
  */
 public class Main extends EngineFrame {
     
     private GuiButton adicionarElemento;
+    //arve
+    private ArvoreBinaria<Integer, String> arvore;
+    private Vector2 posicao;
     
     
     public Main() {
@@ -40,7 +42,16 @@ public class Main extends EngineFrame {
 
     @Override
     public void create() {
+        arvore = new ArvoreBinaria<>();
+        posicao = new Vector2(100, 200);
         
+        arvore.put( 5, "cinco" );
+        arvore.put( 2, "dois" );
+        arvore.put( 10, "dez" );
+        arvore.put( 15, "quinze" );
+        arvore.put( 12, "doze" );
+        arvore.put( 1, "um" );
+        arvore.put( 3, "três" );
     }
 
 
@@ -52,9 +63,14 @@ public class Main extends EngineFrame {
 
     @Override
     public void draw() {
-        
+        drawNode(arvore, posicao);
         
     
+    }
+    
+    private void drawNode(ArvoreBinaria<Integer, String> tree, Vector2 pos ){
+        drawCircle(pos, 40, BLACK);
+        drawText(tree.get(5), pos, PINK);
     }
     
     public static void main( String[] args ) {
