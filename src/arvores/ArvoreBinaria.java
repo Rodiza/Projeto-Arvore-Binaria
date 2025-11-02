@@ -128,71 +128,50 @@ public class ArvoreBinaria<Key extends Comparable<Key>, Value> implements Iterab
      */
     private Node<Key, Value> delete( Node<Key, Value> node, Key key ) {
         
-        if ( node != null ) {
-            
-            Node<Key, Value> temp;
-            int comp = key.compareTo( node.key );
+        if (node == null) return null;
 
-            if ( comp == 0 ) {
-                
-                size--;
-                
-                // o nó não tem filhos
-                if ( node.left == node.right ) {
+        int comp = key.compareTo(node.key);
 
-                    return null;
+        if (comp < 0) {
+            node.left = delete(node.left, key);
+        } else if (comp > 0) {
+            node.right = delete(node.right, key);
+        } else {
+           // nó encontrado
+            size--;
 
-                // o nó a ser removido não tem filho à esquerda, só à direita
-                // a primeira condição garante que se os dois nós não são o mesmo,
-                // um deles pode ser null.
-                } else if ( node.left == null ) {
+            if (node.left == null) return node.right;
+            if (node.right == null) return node.left;
 
-                    temp = node.right;
-                    node.right = null;
-                    return temp;
+            // dois filhos
+            Node<Key, Value> t = node;
+            Node<Key, Value> successor = min(t.right); // menor da subárvore direita
 
-                // o nó a ser removido não tem filho à direita, só à esquerda
-                // a primeira condição garante que se os dois nós não são o mesmo,
-                // um deles pode ser null.
-                } else if ( node.right == null ) {
-
-                    temp = node.left;
-                    node.left = null;
-                    return temp;
-
-                // o nó a ser removido tem filhos em ambos os lados
-                } else {
-
-                    // busca pelo menor nó, onde a subárvore esquerda
-                    // será inserida
-                    temp = node.right;
-                    Node<Key, Value> min = temp;
-
-                    while ( min.left != null ) {
-                        min = min.left;
-                    }
-
-                    // reaponta a subárvore esquerda do nó removido
-                    // no menor item encontrado
-                    min.left = node.left;
-
-                    node.left = null;
-                    node.right = null;
-
-                    return temp;
-
-                }
-
-            } else if ( comp < 0 ) {
-                node.left = delete( node.left, key );
-            } else { // comparacao > 0
-                node.right = delete( node.right, key );
+            // Se o sucessor não é o filho direto
+            if (successor != t.right) {
+                successor.right = deleteMin(t.right);
+            } else {
+                successor.right = t.right.right; // reaponta corretamente
             }
+
+            successor.left = t.left;
+            node = successor;
             
-        }
+            }
 
         return node;
 
+    }
+    
+    private Node<Key, Value> min(Node<Key, Value> node) {
+        while (node.left != null) node = node.left;
+        return node;
+    }
+    
+    private Node<Key, Value> deleteMin(Node<Key, Value> node) {
+        if (node.left == null) return node.right;
+        node.left = deleteMin(node.left);
+        return node;
     }
     
     public boolean contains( Key key ) throws IllegalArgumentException {
@@ -231,6 +210,35 @@ public class ArvoreBinaria<Key extends Comparable<Key>, Value> implements Iterab
     @Override
     public Iterator<Key> iterator() {
         throw new UnsupportedOperationException("Criar o iterador.");
+    }
+    
+    public Node<Key, Value> getRoot() {
+        
+        return root;
+    }
+    
+    //nivel indica a profundidade (posicionamento vertical)
+    //ranque usado para posicionamento horizontal
+    public void atualizarRanqueNivel() {
+        
+        int[] contadorRanque = new int[]{0};
+        atualizarRanqueNivel( root, 0, contadorRanque );
+        
+    }
+    
+    private void atualizarRanqueNivel( Node<Key, Value> node, int nivel, int[] contadorRanque ) {
+        
+        if( node == null ) {
+            
+            return;
+        }
+        
+        atualizarRanqueNivel( node.left, nivel + 1, contadorRanque );
+        node.nivel = nivel;
+        node.ranque = contadorRanque[0];
+        contadorRanque[0]++;
+        atualizarRanqueNivel( node.right, nivel + 1, contadorRanque );
+        
     }
     
 }
