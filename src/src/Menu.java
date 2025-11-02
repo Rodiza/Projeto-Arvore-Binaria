@@ -57,6 +57,11 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setVerifyInputWhenFocusTarget(false);
 
         ArvoreAVL.setText("Árvore AVL");
+        ArvoreAVL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ArvoreAVLActionPerformed(evt);
+            }
+        });
 
         ArvoreVermelhaPreto.setText("Árvore Vermelha e Preto");
 
@@ -126,6 +131,11 @@ public class Menu extends javax.swing.JFrame {
         ArvoreBinariaVisualizador arvoreBinaria = new ArvoreBinariaVisualizador();
         arvoreBinaria.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_ArvoreBinariaActionPerformed
+
+    private void ArvoreAVLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArvoreAVLActionPerformed
+        ArvoreAVLVisualizador arvoreAVL = new ArvoreAVLVisualizador();
+        arvoreAVL.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_ArvoreAVLActionPerformed
 
     /**
      * @param args the command line arguments

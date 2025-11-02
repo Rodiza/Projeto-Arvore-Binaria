@@ -2,17 +2,17 @@ package src;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.imgui.GuiButton;
-import arvores.ArvoreBinaria;
+import arvores.ArvoreAVL;
 import br.com.davidbuzatto.jsge.core.Camera2D;
 import br.com.davidbuzatto.jsge.imgui.GuiInputDialog;
 import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Demonstração visual de Arvore Binária
+ * Demonstração visual de Arvore AVL
  * 
  * @author Rodrigo Costa Garcia, Davi Beli Rosa
  */
-public class ArvoreBinariaVisualizador extends EngineFrame {
+public class ArvoreAVLVisualizador extends EngineFrame {
     
     private GuiButton btnAddElemento;
     private GuiInputDialog inputAddElemento;
@@ -20,7 +20,7 @@ public class ArvoreBinariaVisualizador extends EngineFrame {
     private GuiInputDialog inputDeletarElemento;
     
     //arvore
-    private ArvoreBinaria<Integer, String> arvore;
+    private ArvoreAVL<Integer, String> arvore;
     
     //atributos da arvore
     private Vector2 origem;
@@ -34,7 +34,7 @@ public class ArvoreBinariaVisualizador extends EngineFrame {
     private String valorPadrao = "";
     
     
-    public ArvoreBinariaVisualizador() {
+    public ArvoreAVLVisualizador() {
         
         super(
             1000,                 // largura                      / width
@@ -55,7 +55,7 @@ public class ArvoreBinariaVisualizador extends EngineFrame {
     @Override
     public void create() {
         
-        arvore = new ArvoreBinaria<>();
+        arvore = new ArvoreAVL<>();
         origem = new Vector2( 500, 150 );
             
         //botão e input para adicionar nó
@@ -157,7 +157,7 @@ public class ArvoreBinariaVisualizador extends EngineFrame {
         
         beginMode2D( camera );
         
-        if( !arvore.isEmpty() && arvore  != null ) {
+        if( !arvore.isEmpty() && arvore != null ) {
             
             desenhar( arvore.getRoot(), origem.x, origem.y, 200 );
             
@@ -173,7 +173,7 @@ public class ArvoreBinariaVisualizador extends EngineFrame {
    
     
     //metodo recursivo para desenhar nodes e arestas
-    private void desenhar( ArvoreBinaria.Node<Integer, String> node, double x, double y, double offset ) {
+    private void desenhar( ArvoreAVL.Node<Integer, String> node, double x, double y, double offset ) {
         
         if( node == null ) {
             

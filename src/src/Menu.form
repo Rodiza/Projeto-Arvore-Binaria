@@ -125,6 +125,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc1;rvore AVL"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ArvoreAVLActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ArvoreVermelhaPreto">
       <Properties>
