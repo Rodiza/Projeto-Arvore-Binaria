@@ -7,7 +7,7 @@ import java.util.Iterator;
 * @param <Key> Tipo das chaves que serão armazenadas na árvore.
 * @param <Value> Tipo dos valores associados às chaves armazenadas na árvore.
 */
-public class ArvoreBinaria<Key extends Comparable<Key>, Value> implements Iterable<Key> {
+public class ArvoreBinaria<Key extends Comparable<Key>, Value> {
 
     /*
      * Classe interna estática que define os nós da árvore binária de busca.
@@ -206,11 +206,6 @@ public class ArvoreBinaria<Key extends Comparable<Key>, Value> implements Iterab
     }
     
     
-    //Implementar depois
-    @Override
-    public Iterator<Key> iterator() {
-        throw new UnsupportedOperationException("Criar o iterador.");
-    }
     
     public Node<Key, Value> getRoot() {
         

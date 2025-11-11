@@ -2,17 +2,18 @@ package src;
 
 import br.com.davidbuzatto.jsge.core.engine.EngineFrame;
 import br.com.davidbuzatto.jsge.imgui.GuiButton;
-import arvores.ArvoreAVL;
+import arvores.ArvoreVermelhoPreto;
+import arvores.ArvoreVermelhoPreto.NodeColor;
 import br.com.davidbuzatto.jsge.core.Camera2D;
 import br.com.davidbuzatto.jsge.imgui.GuiInputDialog;
 import br.com.davidbuzatto.jsge.math.Vector2;
 
 /**
- * Demonstração visual de Arvore AVL
+ * Demonstração visual de Arvore Vermelho e preto
  * 
  * @author Rodrigo Costa Garcia, Davi Beli Rosa
  */
-public class ArvoreAVLVisualizador extends EngineFrame {
+public class ArvoreVermelhoPretoVisualizador extends EngineFrame {
     
     private GuiButton btnAddElemento;
     private GuiInputDialog inputAddElemento;
@@ -20,7 +21,7 @@ public class ArvoreAVLVisualizador extends EngineFrame {
     private GuiInputDialog inputDeletarElemento;
     
     //arvore
-    private ArvoreAVL<Integer, String> arvore;
+    private ArvoreVermelhoPreto<Integer, String> arvore;
     
     //atributos da arvore
     private Vector2 origem;
@@ -34,12 +35,12 @@ public class ArvoreAVLVisualizador extends EngineFrame {
     private String valorPadrao = "";
     
     
-    public ArvoreAVLVisualizador() {
+    public ArvoreVermelhoPretoVisualizador() {
         
         super(
             1000,                 // largura                      / width
             600,                 // altura                      / height
-            "Visualizador de Árvore AVL",      // título                       / title
+            "Visualizador de Árvore Vermelho e Preto",      // título                       / title
             60,                  // quadros por segundo desejado / target FPS
             true,                // suavização                   / antialiasing
             false,               // redimensionável              / resizable
@@ -55,7 +56,7 @@ public class ArvoreAVLVisualizador extends EngineFrame {
     @Override
     public void create() {
         
-        arvore = new ArvoreAVL<>();
+        arvore = new ArvoreVermelhoPreto<>();
         origem = new Vector2( 500, 150 );
             
         //botão e input para adicionar nó
@@ -146,7 +147,6 @@ public class ArvoreAVLVisualizador extends EngineFrame {
             camera.offset.x -= 10;
         }
 
-        
     }
     
 
@@ -173,17 +173,25 @@ public class ArvoreAVLVisualizador extends EngineFrame {
    
     
     //metodo recursivo para desenhar nodes e arestas
-    private void desenhar( ArvoreAVL.Node<Integer, String> node, double x, double y, double offset ) {
+    private void desenhar( ArvoreVermelhoPreto.Node<Integer, String> node, double x, double y, double offset ) {
         
         if( node == null ) {
             
             return;    
         }
         
+        
         //desenhar node atual
         double raio = 20;
         fillCircle( new Vector2( x, y ), raio, WHITE );
-        drawCircle( new Vector2( x, y ), raio, BLACK );
+        
+        //decide se vai ser desenhado como vermelho ou preto
+        if(node.color == NodeColor.RED){
+            drawCircle( new Vector2( x, y ), raio, RED );
+        }else{
+            drawCircle( new Vector2( x, y ), raio, BLACK );
+        }
+         
         drawText( node.key.toString(), x - 5, y - 5, BLACK );
         
         //desenha filho da esquerda
@@ -201,7 +209,13 @@ public class ArvoreAVLVisualizador extends EngineFrame {
             double fimX = filhoX - dx / dist * raio;
             double fimY = filhoY - dy / dist * raio;
             
-            drawLine( inicioX, inicioY, fimX, fimY, BLACK );   //desenha aresta para esquerda
+            //desenha aresta para esquerda
+            if(node.color == NodeColor.RED){
+                drawLine( inicioX, inicioY, fimX, fimY, RED );
+            }else{
+                drawLine( inicioX, inicioY, fimX, fimY, BLACK );
+            }
+            
             desenhar( node.left, filhoX, filhoY, offset / 2 );
             
         }
@@ -222,13 +236,20 @@ public class ArvoreAVLVisualizador extends EngineFrame {
             double fimX = filhoX - dx / dist * raio;
             double fimY = filhoY - dy / dist * raio;
             
-            drawLine( inicioX, inicioY, fimX,fimY, BLACK );   //desenha aresta direita
+            //desenha aresta direita
+            if(node.color == NodeColor.RED){
+                drawLine( inicioX, inicioY, fimX, fimY, RED );
+            }else{
+                drawLine( inicioX, inicioY, fimX, fimY, BLACK );
+            }
+
             desenhar( node.right, filhoX, filhoY, offset / 2 );
             
         }
         
     }
     
+
     //Isso aqui é só pra diminuir a quantidade de código no create
     //Só vai deixar o botao mais bonitinho
     private void tratarBotao(GuiButton btn){

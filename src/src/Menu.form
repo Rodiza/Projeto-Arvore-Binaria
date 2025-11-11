@@ -131,8 +131,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="ArvoreVermelhaPreto">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc1;rvore Vermelha e Preto"/>
+        <Property name="text" type="java.lang.String" value="&#xc1;rvore Vermelho e Preto"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ArvoreVermelhoPretoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>

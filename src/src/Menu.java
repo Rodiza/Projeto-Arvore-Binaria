@@ -63,7 +63,12 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        ArvoreVermelhaPreto.setText("Árvore Vermelha e Preto");
+        ArvoreVermelhaPreto.setText("Árvore Vermelho e Preto");
+        ArvoreVermelhaPreto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ArvoreVermelhoPretoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Rodrigo Costa Garcia");
 
@@ -136,6 +141,11 @@ public class Menu extends javax.swing.JFrame {
         ArvoreAVLVisualizador arvoreAVL = new ArvoreAVLVisualizador();
         arvoreAVL.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
     }//GEN-LAST:event_ArvoreAVLActionPerformed
+
+    private void ArvoreVermelhoPretoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArvoreVermelhoPretoActionPerformed
+        ArvoreVermelhoPretoVisualizador arvoreVermelhoPreto = new ArvoreVermelhoPretoVisualizador();
+        arvoreVermelhoPreto.setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+    }//GEN-LAST:event_ArvoreVermelhoPretoActionPerformed
 
     /**
      * @param args the command line arguments
