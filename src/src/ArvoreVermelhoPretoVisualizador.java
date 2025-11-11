@@ -202,6 +202,7 @@ public class ArvoreVermelhoPretoVisualizador extends EngineFrame {
             
             double dx = filhoX - x;
             double dy = filhoY - y;
+            //conta absurda feita por IA mas funciona, desculpa professor
             double dist = Math.sqrt( dx * dx + dy* dy );
             
             double inicioX = x + dx / dist * raio;
