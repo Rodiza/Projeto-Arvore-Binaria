@@ -184,14 +184,7 @@ public class ArvoreVermelhoPretoVisualizador extends EngineFrame {
         //desenhar node atual
         double raio = 20;
         fillCircle( new Vector2( x, y ), raio, WHITE );
-        
-        //decide se vai ser desenhado como vermelho ou preto
-        if(node.color == NodeColor.RED){
-            drawCircle( new Vector2( x, y ), raio, RED );
-        }else{
-            drawCircle( new Vector2( x, y ), raio, BLACK );
-        }
-         
+        drawCircle( new Vector2( x, y ), raio, BLACK );
         drawText( node.key.toString(), x - 5, y - 5, BLACK );
         
         //desenha filho da esquerda
@@ -210,12 +203,13 @@ public class ArvoreVermelhoPretoVisualizador extends EngineFrame {
             double fimX = filhoX - dx / dist * raio;
             double fimY = filhoY - dy / dist * raio;
             
-            //desenha aresta para esquerda
-            if(node.color == NodeColor.RED){
+            //desenha aresta para esquerda caso a node da esquerda seja vermelha
+            if(node.left.color == NodeColor.RED){
                 drawLine( inicioX, inicioY, fimX, fimY, RED );
             }else{
                 drawLine( inicioX, inicioY, fimX, fimY, BLACK );
             }
+
             
             desenhar( node.left, filhoX, filhoY, offset / 2 );
             
@@ -238,11 +232,8 @@ public class ArvoreVermelhoPretoVisualizador extends EngineFrame {
             double fimY = filhoY - dy / dist * raio;
             
             //desenha aresta direita
-            if(node.color == NodeColor.RED){
-                drawLine( inicioX, inicioY, fimX, fimY, RED );
-            }else{
-                drawLine( inicioX, inicioY, fimX, fimY, BLACK );
-            }
+            drawLine( inicioX, inicioY, fimX, fimY, BLACK );
+
 
             desenhar( node.right, filhoX, filhoY, offset / 2 );
             
